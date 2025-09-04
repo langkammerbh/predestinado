@@ -1,8 +1,17 @@
 package br.com.ipbcentralbetim.predestinado.models;
 
-public class Oferta {
+public class Contribuicao {
     private Membro ofertante;
     private double valor;
+    private String tipo;
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
 
     public double getValor() {
         return valor;
@@ -14,6 +23,8 @@ public class Oferta {
 
     public Membro getOfertante() {
         return ofertante;
+
+
     }
 
     public void setOfertante(Membro ofertante) {
