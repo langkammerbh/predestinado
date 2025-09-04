@@ -1,9 +1,20 @@
 package br.com.ipbcentralbetim.predestinado.models;
 
+import java.util.Date;
+
 public class Contribuicao {
     private Membro ofertante;
     private double valor;
     private String tipo;
+    private Date dataDaContribuicao;
+
+    public Date getDataDaContribuicao() {
+        return dataDaContribuicao;
+    }
+
+    public void setDataDaContribuicao(Date dataDaContribuicao) {
+        this.dataDaContribuicao = dataDaContribuicao;
+    }
 
     public String getTipo() {
         return tipo;
