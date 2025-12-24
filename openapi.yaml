@@ -1,0 +1,346 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "API Gestão Dizimos e Ofertas IPB",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/doacoes": {
+      "get": {
+        "parameters": [
+          { "name": "itens_per_page", "in": "query", "schema": { "type": "integer", "default": 10 } },
+          { "name": "page_number", "in": "query", "schema": { "type": "integer", "default": 0 } },
+          { "name": "cod_instituicao", "in": "query", "schema": { "type": "string" } },
+          { "name": "codigo_doador", "in": "query", "schema": { "type": "string", "nullable": true } },
+          { "name": "order_by", "in": "query", "schema": { "type": "string", "default": "data_inclusao" } }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "pageable": { "$ref": "#/components/schemas/Pageable" },
+                    "data": {
+                      "type": "array",
+                      "items": { "$ref": "#/components/schemas/Doacao" }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/DoacaoPost" }
+            }
+          }
+        },
+        "responses": { "201": { "description": "Criado" } }
+      }
+    },
+    "/doacoes/{id}": {
+      "get": {
+        "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }],
+        "responses": { "200": { "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Doacao" } } } }
+      },
+      "put": {
+        "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }],
+        "requestBody": {
+          "required": true,
+          "content": { "application/json": { "schema": { "$ref": "#/components/schemas/DoacaoPost" } } }
+        },
+        "responses": { "200": { "description": "Atualizado" } }
+      },
+      "delete": {
+        "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }],
+        "responses": { "204": { "description": "Removido" } }
+      }
+    },
+
+    "/doadores": {
+      "get": {
+        "parameters": [
+          { "name": "itens_per_page", "in": "query", "schema": { "type": "integer", "default": 10 } },
+          { "name": "page_number", "in": "query", "schema": { "type": "integer", "default": 0 } },
+          { "name": "nome", "in": "query", "schema": { "type": "string", "nullable": true } },
+          { "name": "order_by", "in": "query", "schema": { "type": "string", "default": "data_inclusao" } }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "pageable": { "$ref": "#/components/schemas/Pageable" },
+                    "data": { "type": "array", "items": { "$ref": "#/components/schemas/Doador" } }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "requestBody": {
+          "required": true,
+          "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Doador" } } }
+        },
+        "responses": { "201": { "description": "Criado" } }
+      }
+    },
+    "/doadores/{id}": {
+      "get": {
+        "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }],
+        "responses": { "200": { "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Doador" } } } }
+      },
+      "put": {
+        "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }],
+        "requestBody": {
+          "required": true,
+          "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Doador" } } }
+        },
+        "responses": { "200": { "description": "Atualizado" } }
+      }
+    },
+
+    "/usuarios": {
+      "get": {
+        "parameters": [
+          { "name": "itens_per_page", "in": "query", "schema": { "type": "integer", "default": 10 } },
+          { "name": "page_number", "in": "query", "schema": { "type": "integer", "default": 0 } },
+          { "name": "nome", "in": "query", "schema": { "type": "string", "nullable": true } },
+          { "name": "order_by", "in": "query", "schema": { "type": "string", "default": "data_inclusao" } }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "pageable": { "$ref": "#/components/schemas/Pageable" },
+                    "data": { "type": "array", "items": { "$ref": "#/components/schemas/Usuario" } }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "requestBody": {
+          "required": true,
+          "content": { "application/json": { "schema": { "$ref": "#/components/schemas/UsuarioPost" } } }
+        },
+        "responses": { "201": { "description": "Criado" } }
+      }
+    },
+    "/usuarios/{id}": {
+      "get": {
+        "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }],
+        "responses": { "200": { "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Usuario" } } } }
+      },
+      "put": {
+        "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }],
+        "requestBody": {
+          "required": true,
+          "content": { "application/json": { "schema": { "$ref": "#/components/schemas/UsuarioPost" } } }
+        },
+        "responses": { "200": { "description": "Atualizado" } }
+      },
+      "delete": {
+        "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }],
+        "responses": { "204": { "description": "Removido" } }
+      }
+    },
+
+    "/contas": {
+      "get": {
+        "parameters": [
+          { "name": "itens_per_page", "in": "query", "schema": { "type": "integer", "default": 10 } },
+          { "name": "page_number", "in": "query", "schema": { "type": "integer", "default": 0 } },
+          { "name": "nome", "in": "query", "schema": { "type": "string", "nullable": true } },
+          { "name": "situacao", "in": "query", "schema": { "type": "string", "default": "pendente" } },
+          { "name": "tipo", "in": "query", "schema": { "type": "string", "nullable": true } },
+          { "name": "order_by", "in": "query", "schema": { "type": "string", "default": "data_inclusao" } }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "pageable": { "$ref": "#/components/schemas/Pageable" },
+                    "data": { "type": "array", "items": { "$ref": "#/components/schemas/Conta" } }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "requestBody": {
+          "required": true,
+          "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Conta" } } }
+        },
+        "responses": { "201": { "description": "Criado" } }
+      }
+    },
+    "/contas/{id}": {
+      "get": {
+        "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }],
+        "responses": { "200": { "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Conta" } } } }
+      },
+      "put": {
+        "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }],
+        "requestBody": {
+          "required": true,
+          "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Conta" } } }
+        },
+        "responses": { "200": { "description": "Atualizado" } }
+      },
+      "delete": {
+        "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }],
+        "responses": { "204": { "description": "Removido" } }
+      }
+    },
+
+    "/notificacoes": {
+      "get": {
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/Notificacao" }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/notificacoes/{id}": {
+      "put": {
+        "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "status": { "type": "string", "enum": ["nao_lido", "lido"] }
+                }
+              }
+            }
+          }
+        },
+        "responses": { "200": { "description": "Atualizado" } }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Pageable": {
+        "type": "object",
+        "properties": {
+          "pageNumber": { "type": "integer" },
+          "pageSize": { "type": "integer" },
+          "totalElements": { "type": "integer" },
+          "totalPages": { "type": "integer" }
+        }
+      },
+      "Doacao": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "integer" },
+          "nome": { "type": "string" },
+          "data_doacao": { "type": "string", "format": "date" },
+          "nome_doador": { "type": "string" },
+          "id_doador": { "type": "integer" },
+          "tipo_doacao": { "type": "string", "enum": ["oferta", "dizimo"] },
+          "valor_oferta": { "type": "number", "format": "double" }
+        }
+      },
+      "DoacaoPost": {
+        "type": "object",
+        "properties": {
+          "nome": { "type": "string" },
+          "data_doacao": { "type": "string", "format": "date" },
+          "id_doador": { "type": "integer" },
+          "tipo_doacao": { "type": "string", "enum": ["oferta", "dizimo"] },
+          "valor_oferta": { "type": "number", "format": "double" },
+          "cod_instituicao": { "type": "string" }
+        }
+      },
+      "Doador": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "integer" },
+          "nome": { "type": "string" },
+          "endereco": { "type": "string" },
+          "data_inclusao": { "type": "string", "format": "date" },
+          "status": { "type": "string" }
+        }
+      },
+      "Usuario": {
+        "type": "object",
+        "properties": {
+          "nome": { "type": "string" },
+          "email": { "type": "string" },
+          "login": { "type": "string" },
+          "data_inclusao": { "type": "string", "format": "date" }
+        }
+      },
+      "UsuarioPost": {
+        "type": "object",
+        "properties": {
+          "nome": { "type": "string" },
+          "email": { "type": "string" },
+          "login": { "type": "string" },
+          "senha": { "type": "string" },
+          "data_inclusao": { "type": "string", "format": "date" }
+        }
+      },
+      "Conta": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "integer" },
+          "nome": { "type": "string" },
+          "data": { "type": "string", "format": "date" },
+          "data_vencimento": { "type": "string", "format": "date" },
+          "valor": { "type": "number", "format": "double" },
+          "situacao": {
+            "type": "string",
+            "enum": ["paga", "parcelada", "vencida", "a_pagar", "cancelada"]
+          },
+          "tipo": {
+            "type": "string",
+            "enum": ["luz", "agua", "internet", "boleto", "parcelamento"]
+          },
+          "pagamento_recorrente": { "type": "boolean" }
+        }
+      },
+      "Notificacao": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "integer" },
+          "nome": { "type": "string" },
+          "status": { "type": "string", "enum": ["nao_lido", "lido"] }
+        }
+      }
+    }
+  }
+}
