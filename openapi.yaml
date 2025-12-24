@@ -1,346 +1,272 @@
-{
-  "openapi": "3.0.3",
-  "info": {
-    "title": "API Gestão Dizimos e Ofertas IPB",
-    "version": "1.0.0"
-  },
-  "paths": {
-    "/doacoes": {
-      "get": {
-        "parameters": [
-          { "name": "itens_per_page", "in": "query", "schema": { "type": "integer", "default": 10 } },
-          { "name": "page_number", "in": "query", "schema": { "type": "integer", "default": 0 } },
-          { "name": "cod_instituicao", "in": "query", "schema": { "type": "string" } },
-          { "name": "codigo_doador", "in": "query", "schema": { "type": "string", "nullable": true } },
-          { "name": "order_by", "in": "query", "schema": { "type": "string", "default": "data_inclusao" } }
-        ],
-        "responses": {
-          "200": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "pageable": { "$ref": "#/components/schemas/Pageable" },
-                    "data": {
-                      "type": "array",
-                      "items": { "$ref": "#/components/schemas/Doacao" }
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": { "$ref": "#/components/schemas/DoacaoPost" }
-            }
-          }
-        },
-        "responses": { "201": { "description": "Criado" } }
-      }
-    },
-    "/doacoes/{id}": {
-      "get": {
-        "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }],
-        "responses": { "200": { "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Doacao" } } } }
-      },
-      "put": {
-        "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }],
-        "requestBody": {
-          "required": true,
-          "content": { "application/json": { "schema": { "$ref": "#/components/schemas/DoacaoPost" } } }
-        },
-        "responses": { "200": { "description": "Atualizado" } }
-      },
-      "delete": {
-        "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }],
-        "responses": { "204": { "description": "Removido" } }
-      }
-    },
+openapi: 3.0.3
 
-    "/doadores": {
-      "get": {
-        "parameters": [
-          { "name": "itens_per_page", "in": "query", "schema": { "type": "integer", "default": 10 } },
-          { "name": "page_number", "in": "query", "schema": { "type": "integer", "default": 0 } },
-          { "name": "nome", "in": "query", "schema": { "type": "string", "nullable": true } },
-          { "name": "order_by", "in": "query", "schema": { "type": "string", "default": "data_inclusao" } }
-        ],
-        "responses": {
-          "200": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "pageable": { "$ref": "#/components/schemas/Pageable" },
-                    "data": { "type": "array", "items": { "$ref": "#/components/schemas/Doador" } }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "requestBody": {
-          "required": true,
-          "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Doador" } } }
-        },
-        "responses": { "201": { "description": "Criado" } }
-      }
-    },
-    "/doadores/{id}": {
-      "get": {
-        "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }],
-        "responses": { "200": { "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Doador" } } } }
-      },
-      "put": {
-        "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }],
-        "requestBody": {
-          "required": true,
-          "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Doador" } } }
-        },
-        "responses": { "200": { "description": "Atualizado" } }
-      }
-    },
+info:
+  title: API Gestão de Doações
+  description: API REST para gestão de doações e notificações
+  version: 1.0.0
 
-    "/usuarios": {
-      "get": {
-        "parameters": [
-          { "name": "itens_per_page", "in": "query", "schema": { "type": "integer", "default": 10 } },
-          { "name": "page_number", "in": "query", "schema": { "type": "integer", "default": 0 } },
-          { "name": "nome", "in": "query", "schema": { "type": "string", "nullable": true } },
-          { "name": "order_by", "in": "query", "schema": { "type": "string", "default": "data_inclusao" } }
-        ],
-        "responses": {
-          "200": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "pageable": { "$ref": "#/components/schemas/Pageable" },
-                    "data": { "type": "array", "items": { "$ref": "#/components/schemas/Usuario" } }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "requestBody": {
-          "required": true,
-          "content": { "application/json": { "schema": { "$ref": "#/components/schemas/UsuarioPost" } } }
-        },
-        "responses": { "201": { "description": "Criado" } }
-      }
-    },
-    "/usuarios/{id}": {
-      "get": {
-        "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }],
-        "responses": { "200": { "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Usuario" } } } }
-      },
-      "put": {
-        "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }],
-        "requestBody": {
-          "required": true,
-          "content": { "application/json": { "schema": { "$ref": "#/components/schemas/UsuarioPost" } } }
-        },
-        "responses": { "200": { "description": "Atualizado" } }
-      },
-      "delete": {
-        "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }],
-        "responses": { "204": { "description": "Removido" } }
-      }
-    },
+servers:
+  - url: http://localhost:8080/api/v1
 
-    "/contas": {
-      "get": {
-        "parameters": [
-          { "name": "itens_per_page", "in": "query", "schema": { "type": "integer", "default": 10 } },
-          { "name": "page_number", "in": "query", "schema": { "type": "integer", "default": 0 } },
-          { "name": "nome", "in": "query", "schema": { "type": "string", "nullable": true } },
-          { "name": "situacao", "in": "query", "schema": { "type": "string", "default": "pendente" } },
-          { "name": "tipo", "in": "query", "schema": { "type": "string", "nullable": true } },
-          { "name": "order_by", "in": "query", "schema": { "type": "string", "default": "data_inclusao" } }
-        ],
-        "responses": {
-          "200": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "pageable": { "$ref": "#/components/schemas/Pageable" },
-                    "data": { "type": "array", "items": { "$ref": "#/components/schemas/Conta" } }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "requestBody": {
-          "required": true,
-          "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Conta" } } }
-        },
-        "responses": { "201": { "description": "Criado" } }
-      }
-    },
-    "/contas/{id}": {
-      "get": {
-        "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }],
-        "responses": { "200": { "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Conta" } } } }
-      },
-      "put": {
-        "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }],
-        "requestBody": {
-          "required": true,
-          "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Conta" } } }
-        },
-        "responses": { "200": { "description": "Atualizado" } }
-      },
-      "delete": {
-        "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }],
-        "responses": { "204": { "description": "Removido" } }
-      }
-    },
+security:
+  - bearerAuth: []
 
-    "/notificacoes": {
-      "get": {
-        "responses": {
-          "200": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": { "$ref": "#/components/schemas/Notificacao" }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/notificacoes/{id}": {
-      "put": {
-        "parameters": [{ "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "status": { "type": "string", "enum": ["nao_lido", "lido"] }
-                }
-              }
-            }
-          }
-        },
-        "responses": { "200": { "description": "Atualizado" } }
-      }
-    }
-  },
-  "components": {
-    "schemas": {
-      "Pageable": {
-        "type": "object",
-        "properties": {
-          "pageNumber": { "type": "integer" },
-          "pageSize": { "type": "integer" },
-          "totalElements": { "type": "integer" },
-          "totalPages": { "type": "integer" }
-        }
-      },
-      "Doacao": {
-        "type": "object",
-        "properties": {
-          "id": { "type": "integer" },
-          "nome": { "type": "string" },
-          "data_doacao": { "type": "string", "format": "date" },
-          "nome_doador": { "type": "string" },
-          "id_doador": { "type": "integer" },
-          "tipo_doacao": { "type": "string", "enum": ["oferta", "dizimo"] },
-          "valor_oferta": { "type": "number", "format": "double" }
-        }
-      },
-      "DoacaoPost": {
-        "type": "object",
-        "properties": {
-          "nome": { "type": "string" },
-          "data_doacao": { "type": "string", "format": "date" },
-          "id_doador": { "type": "integer" },
-          "tipo_doacao": { "type": "string", "enum": ["oferta", "dizimo"] },
-          "valor_oferta": { "type": "number", "format": "double" },
-          "cod_instituicao": { "type": "string" }
-        }
-      },
-      "Doador": {
-        "type": "object",
-        "properties": {
-          "id": { "type": "integer" },
-          "nome": { "type": "string" },
-          "endereco": { "type": "string" },
-          "data_inclusao": { "type": "string", "format": "date" },
-          "status": { "type": "string" }
-        }
-      },
-      "Usuario": {
-        "type": "object",
-        "properties": {
-          "nome": { "type": "string" },
-          "email": { "type": "string" },
-          "login": { "type": "string" },
-          "data_inclusao": { "type": "string", "format": "date" }
-        }
-      },
-      "UsuarioPost": {
-        "type": "object",
-        "properties": {
-          "nome": { "type": "string" },
-          "email": { "type": "string" },
-          "login": { "type": "string" },
-          "senha": { "type": "string" },
-          "data_inclusao": { "type": "string", "format": "date" }
-        }
-      },
-      "Conta": {
-        "type": "object",
-        "properties": {
-          "id": { "type": "integer" },
-          "nome": { "type": "string" },
-          "data": { "type": "string", "format": "date" },
-          "data_vencimento": { "type": "string", "format": "date" },
-          "valor": { "type": "number", "format": "double" },
-          "situacao": {
-            "type": "string",
-            "enum": ["paga", "parcelada", "vencida", "a_pagar", "cancelada"]
-          },
-          "tipo": {
-            "type": "string",
-            "enum": ["luz", "agua", "internet", "boleto", "parcelamento"]
-          },
-          "pagamento_recorrente": { "type": "boolean" }
-        }
-      },
-      "Notificacao": {
-        "type": "object",
-        "properties": {
-          "id": { "type": "integer" },
-          "nome": { "type": "string" },
-          "status": { "type": "string", "enum": ["nao_lido", "lido"] }
-        }
-      }
-    }
-  }
-}
+tags:
+  - name: Doações
+  - name: Notificações
+
+paths:
+
+  /doacoes:
+    get:
+      tags: [Doações]
+      summary: Listar doações (paginado)
+      parameters:
+        - $ref: '#/components/parameters/Page'
+        - $ref: '#/components/parameters/Size'
+        - $ref: '#/components/parameters/Sort'
+        - name: nomeDoador
+          in: query
+          schema:
+            type: string
+          description: Filtro por nome do doador
+      responses:
+        '200':
+          description: Página de doações
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PageDoacaoResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+    post:
+      tags: [Doações]
+      summary: Criar doação
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DoacaoRequest'
+      responses:
+        '201':
+          description: Doação criada
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DoacaoResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+
+  /doacoes/{id}:
+    get:
+      tags: [Doações]
+      summary: Buscar doação por ID
+      parameters:
+        - $ref: '#/components/parameters/Id'
+      responses:
+        '200':
+          description: Doação encontrada
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DoacaoResponse'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+    put:
+      tags: [Doações]
+      summary: Atualizar doação
+      parameters:
+        - $ref: '#/components/parameters/Id'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DoacaoRequest'
+      responses:
+        '200':
+          description: Doação atualizada
+        '400':
+          $ref: '#/components/responses/BadRequest'
+
+    delete:
+      tags: [Doações]
+      summary: Remover doação
+      parameters:
+        - $ref: '#/components/parameters/Id'
+      responses:
+        '204':
+          description: Removida com sucesso
+
+  /notificacoes:
+    get:
+      tags: [Notificações]
+      summary: Listar notificações
+      responses:
+        '200':
+          description: Lista de notificações
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/NotificacaoResponse'
+
+    put:
+      tags: [Notificações]
+      summary: Atualizar notificação
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NotificacaoRequest'
+      responses:
+        '200':
+          description: Atualizada
+
+components:
+
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+  parameters:
+    Id:
+      name: id
+      in: path
+      required: true
+      schema:
+        type: integer
+
+    Page:
+      name: page
+      in: query
+      schema:
+        type: integer
+        default: 0
+
+    Size:
+      name: size
+      in: query
+      schema:
+        type: integer
+        default: 10
+
+    Sort:
+      name: sort
+      in: query
+      schema:
+        type: string
+        example: data,desc
+
+  responses:
+    BadRequest:
+      description: Requisição inválida
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiError'
+
+    Unauthorized:
+      description: Não autorizado
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiError'
+
+    NotFound:
+      description: Recurso não encontrado
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ApiError'
+
+  schemas:
+
+    DoacaoRequest:
+      type: object
+      required: [nomeDoador, valor, data]
+      properties:
+        nomeDoador:
+          type: string
+          example: João Silva
+        valor:
+          type: number
+          format: double
+          example: 150.00
+        data:
+          type: string
+          format: date
+          example: 2025-01-10
+        recorrente:
+          type: boolean
+          example: false
+
+    DoacaoResponse:
+      allOf:
+        - $ref: '#/components/schemas/DoacaoRequest'
+        - type: object
+          properties:
+            id:
+              type: integer
+              example: 1
+
+    NotificacaoRequest:
+      type: object
+      required: [id, status]
+      properties:
+        id:
+          type: integer
+        status:
+          $ref: '#/components/schemas/StatusNotificacao'
+
+    NotificacaoResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+        nome:
+          type: string
+        status:
+          $ref: '#/components/schemas/StatusNotificacao'
+
+    StatusNotificacao:
+      type: string
+      enum: [nao_lido, lido]
+
+    PageDoacaoResponse:
+      type: object
+      properties:
+        content:
+          type: array
+          items:
+            $ref: '#/components/schemas/DoacaoResponse'
+        totalElements:
+          type: integer
+        totalPages:
+          type: integer
+        size:
+          type: integer
+        number:
+          type: integer
+
+    ApiError:
+      type: object
+      properties:
+        timestamp:
+          type: string
+          format: date-time
+        status:
+          type: integer
+        error:
+          type: string
+        message:
+          type: string
+        path:
+          type: string
